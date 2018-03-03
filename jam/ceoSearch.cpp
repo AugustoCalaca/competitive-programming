@@ -4,7 +4,7 @@
 using namespace std;
 typedef long long ll;
 
-// correct
+// ac
 int main() {
   ll p[1010], e[1010], t, l, c = 1;
 
@@ -19,7 +19,7 @@ int main() {
     }
 
     cout << "Case #" << c++ << ": "
-       << max(p[l - 1], e[l - 1] + 1) << "\n";
+         << max(p[l - 1], e[l - 1] + 1) << "\n";
 
   }
 

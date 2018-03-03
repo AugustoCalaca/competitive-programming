@@ -4,7 +4,7 @@
 #define sq(x) (x) * (x)
 using namespace std;
 
-// correct
+// ac
 int main() {
   int k, t;
   int v[110];
