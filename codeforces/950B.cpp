@@ -15,10 +15,10 @@ int main() {
   ans = a0 = b0 = 0;
   int i = 0, j = 0;
   while(true) {
-      if(a0 <= b0) a0 += a[++i];
-      else b0 += b[++j];
-      if(a0 == b0) ans++;
-      if(i == n && j == m) break;
+    if(a0 <= b0) a0 += a[++i];
+    else b0 += b[++j];
+    if(a0 == b0) ans++;
+    if(i == n && j == m) break;
   }
 
   cout << ans << endl;
