@@ -37,15 +37,26 @@ ll solveTwo(ll n, ll r, ll p) {
   return dp[r];
 }
 
-// complexity linaer
-ll solveThree(ll n, ll r) {
+ll fext(ll b, ll e, ll p) {
   ll ans = 1;
+  for(; e > 0; e >>= 1) {
+    if(e & 1) ans = (ans * b) % p;
+    b = (b * b) % p;
+  }
 
+  return ans;
+}
+
+// complexity rlog(p)
+ll solveThree(ll n, ll r, ll p) {
   if(r > n - r) r = n - r;
 
+  ll ans = 1;
   for(ll i = 0; i < r; i++) {
-    ans *= (n - i);
-    ans /= (i + 1);
+    ans = (ans % p * (n - i) % p) % p;
+    ans = (ans % p * fext(i + 1, p - 2, p) % p) % p;
+    // ans *= (n - i);
+    // ans /= (i + 1);
   }
 
   return ans;
@@ -57,16 +68,5 @@ ll lucas(ll n, ll r, ll p) {
 
   ll ni = n % p, ri = r % p;
 
-  return (lucas(n / p, r / p, p) * solveTwo(ni, ri, p) % p);
-}
-
-int main() {
-  ll n, r, p, t;
-
-  // C(n, r) % p
-  for(cin >> t; t--; ){
-    cin >> n >> r >> p;
-    cout << lucas(n, r, p) << "\n";
-  }
-  return 0;
+  return (lucas(n / p, r / p, p) * solveThree(ni, ri, p) % p);
 }
