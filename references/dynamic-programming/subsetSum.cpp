@@ -1,15 +1,8 @@
-/*
- * implementacao de um algoritmo que encontra todas as somas
- * de um conjunto usando programacao dinamica
- *
- * Subset-sum
- */
-
 #include <iostream>
 
 using namespace std;
 
-void subsetSum(int set[], int sz, int sum) {
+bool subsetSum(int set[], int sz, int sum) {
 	bool subset[sz + 1][sum + 1];
 
 	for(int i = 0; i <= sz; i++)
@@ -18,8 +11,7 @@ void subsetSum(int set[], int sz, int sum) {
 		subset[0][j] = false;
 
 	for(int i = 1; i <= sz; i++) {
-		for(int j = 1; j <= sum; j++)
-		{
+		for(int j = 1; j <= sum; j++) {
 			if(j < set[i - 1])
 				subset[i][j] = subset[i - 1][j];
 			if(j >= set[i - 1])
@@ -28,15 +20,11 @@ void subsetSum(int set[], int sz, int sum) {
 		}
 	}
 
-	for(int i = 0; i <= sz; i++) {
-		for(int j = 0; j <= sum; j++)
-				cout << " " << subset[i][j];
-		cout << endl;
-	}
+	return subset[sz][sum];
 }
 
 int main() {
-	int set [] = {2, 1, 5,};
+	int set [] = { 2, 3, 7, 8, 10 };
 	int sz = sizeof(set) / sizeof(int);
 	int sum = 0;
 

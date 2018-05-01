@@ -22,7 +22,7 @@ int knapsack(int c, int e, int v[], int p[]){
 				tb[i][j] = tb[i - 1][j];
 		}
 	}
-	// por fim retorna o ultimo valor colocado na mochila
+
 	return tb[e][c];
 }
 

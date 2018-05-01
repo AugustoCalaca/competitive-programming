@@ -1,9 +1,3 @@
-/*
-	implementacao do algoritmo de Kadane
-	aproveito para implentar o msm algoritmo com programcao dinamica
-	serve para encontrar a maior soma contigua de uma sequencia
-*/
-
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -39,29 +33,6 @@ int progDin(vector<int>& v) {
 			pd[i] = v[i] + pd[i - 1];
 	}
 
-	cout << "Vector: ";
-	for(auto it = v.begin(); it != v.end(); it++)
-		cout << " " << *it;
-	cout << endl;
-
-	cout << "Vector de sums:";
-	for(auto it = pd.begin(); it != pd.end(); it++)
-		cout << " " << *it;
-	cout << endl;
-
 	return *max_element(pd.begin(), pd.end());
-}
-
-int main(){
-	vector<int> vec;
-	int valor;
-
-	while(cin >> valor)
-		vec.push_back(valor);
-
-	cout << "Kadane: " << kadane(vec) << "\n";
-	cout << "Prog. Dinam: " << progDin(vec) << "\n";
-
-	return 0;
 }
 

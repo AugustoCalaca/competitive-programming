@@ -11,8 +11,7 @@ int coinChange(vector<int>& coin, int change) {
 
 	sort(coin.begin(), coin.end(), greater<int>());
 
-	for(auto it = coin.begin(); it != coin.end(); it++)
-	{
+	for(auto it = coin.begin(); it != coin.end(); it++) {
 		auxCoin = change / *it;
 		change = change - (*it) * auxCoin;
 		qtCoin = qtCoin + auxCoin;

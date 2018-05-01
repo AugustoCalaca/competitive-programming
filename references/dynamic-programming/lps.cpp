@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 int lps(string& str) {
 	int sz = str.size();
 	int tb[sz][sz];
@@ -43,7 +42,6 @@ int lps(string& str) {
 
 int main() {
 	string str("MARTRAM");
-
 	cout << lps(str) << endl;
 
 	return 0;

@@ -54,24 +54,15 @@ int lcs(string& str, string& str2) {
 		}
 	}
 
-	cout << "Tabble: \n";
-	for(int i = 0; i <= sz; i++) {
-		for(int j = 0; j <= sz2; j++)
-			cout << " " << tb[i][j];
-		cout << "\n";
-	}
-	cout << "\n";
-
 	showLcs(str, str2, tb);
 
 	return tb[sz][sz2];
 }
 
-
 int main() {
 	string str("abcdef"), str2("cdofhij");
-
 	cout << "Size LCS: " << lcs(str, str2) << endl;
+
 	return 0;
 }
 
