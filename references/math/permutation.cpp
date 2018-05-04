@@ -18,8 +18,6 @@ void permutation(int vector[], int bottom, int higher) {
 	}
 }
 
-
-
 int main() {
 	int sz;
 	cin >> sz;
