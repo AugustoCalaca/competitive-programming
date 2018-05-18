@@ -18,6 +18,7 @@ void fast() {
   cout.tie(NULL);
 }
 
+// ac
 int main() {
   fast();
   int k, n, v;
