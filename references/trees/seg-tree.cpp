@@ -6,7 +6,7 @@
 #define M (int)1e5
 using namespace std;
 
-int segTree[M] = { INT_MAX }; // for sum start whith 0, for max start with INT_MIN
+int segTree[M] = { INT_MAX }; // for sum start with 0, for max start with INT_MIN
 int lazy[M] = { 0 };
 
 void constructSegTree(int input[], int low, int hight, int pos = 0) {
@@ -27,7 +27,7 @@ int rangeMinQuery(int qlow, int qhight, int low, int hight, int pos = 0) {
     segTree[pos] += lazy[pos];
     if(low != hight) {
       lazy[2 * pos + 1] += lazy[pos];
-      lazy[2 + pos + 2] += lazy[pos];
+      lazy[2 * pos + 2] += lazy[pos];
     }
     lazy[pos] = 0;
   }
