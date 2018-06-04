@@ -94,24 +94,25 @@ int main() {
 
   double input[M], val;
   int n;
-  scanf("%d", &n);
+  cin >> n;
   for(int i = 0; i < n; i++)
-    scanf("%lf", input + i);
+    cin >> input[i];
 
   constructSegTree(input, 0, n - 1);
-
+  cout.precision(6);
+  cout << fixed;
 
   int q, t, l, r;
-  scanf("%d", &q);
+  cin >> q;
   while(q--) {
-    scanf("%d", &t);
+    cin >> t;
     if(t == 1) {
-      scanf("%d %lf", &l, &val);
+      cin >> l >> val;
       lazyPropagation(l - 1, l - 1, 0, n - 1, val);
     }
     else if(t == 2) {
-      scanf("%d %d", &l, &r);
-      printf("%.6lf\n", sumQuery(l - 1, r - 1, 0, n - 1) / (r - l + 1));
+      cin >> l >> r;
+      cout << sumQuery(l - 1, r - 1, 0, n - 1) / (r - l + 1) << "\n";
     }
   }
 
