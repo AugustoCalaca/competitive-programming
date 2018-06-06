@@ -1,37 +1,22 @@
 #include <iostream>
-#include <vector>
-#include <functional>
-#include <algorithm>
+#include <climits>
 
 using namespace std;
 
-int coinChange(vector<int>& coin, int change) {
-	int qtCoin = 0;
-	int auxCoin;
-
-	sort(coin.begin(), coin.end(), greater<int>());
-
-	for(auto it = coin.begin(); it != coin.end(); it++) {
-		auxCoin = change / *it;
-		change = change - (*it) * auxCoin;
-		qtCoin = qtCoin + auxCoin;
-	}
-
-	return qtCoin;
+int min(int a, int b) {
+  return a < b ? a : b;
 }
 
-int main() {
-	vector<int> coin;
-	int change, val;
+int coinChange(int coin[], int n, int total) {
+  int dp[total + 1];
 
-	while(cin >> val) {
-		if(val == 0)
-			break;
-		coin.push_back(val);
-	}
+  for(int i = 1; i <= total; i++)
+    dp[i] = INT_MAX - 10;
+  dp[0] = 0;
 
-	cin >> change;
-	cout << "Coin number: " << coinChange(coin, change) << "\n";
+  for(int i = 0; i < n; i++)
+    for(int j = coin[i]; j <= total; j++)
+      dp[j] = min(dp[j], dp[j - coin[i]] + 1);
 
-	return 0;
+  return dp[total];
 }
