@@ -20,3 +20,6 @@ int coinChange(int coin[], int n, int total) {
 
   return dp[total];
 }
+
+// obs: store index of coin in a array aux for find values the coins
+// starts at the end and jump for position (total - coin[aux[j]]) until aux[j] = -1
