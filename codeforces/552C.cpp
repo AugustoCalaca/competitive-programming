@@ -13,6 +13,7 @@ int main() {
 
   int w, m;
   cin >> w >> m;
+
   if(w == 2) {
     cout << "YES\n";
     return 0;
