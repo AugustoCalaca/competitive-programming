@@ -15,7 +15,6 @@ typedef unsigned long long ull;
 int main() {
   FAST;
 
-
   int s, n, q[100010];
   multiset<int> noglo;
   cin >> s;
