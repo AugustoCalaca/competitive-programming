@@ -46,7 +46,7 @@ int main() {
     table[i][0] = input[i];
 
   for(int j = 1; (1 << j) <= n; j++)
-    for(int i = 0; i + (1 << (j - 1)) <= n; i++)
+    for(int i = 0; i + (1 << j) <= n; i++)
       table[i][j] = func(table[i][j - 1], table[i + (1 << (j - 1))][j - 1]);
 
   // cout << sumquery(0, 3, n) << "\n";
