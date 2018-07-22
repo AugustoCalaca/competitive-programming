@@ -20,40 +20,47 @@ typedef unsigned long long ull;
 ll ans1, ans2, p, q, b1, b2;
 
 bool checkx(ll x) {
-  return 2 * sq(x) * sq(x) + sq(q) - sq(x) * b1 == 0;
+  return 2 * sq(x) * sq(x) + sq(q) == sq(x) * b1;
 }
 
 bool checky(ll y) {
-  return 2 * sq(y) * sq(y) + sq(p) - sq(y) * b2 == 0;
+  return 2 * sq(y) * sq(y) + sq(p) == sq(y) * b2;
+}
+
+bool recheck() {
+  return (ans1 + ans2) * ans2 == p && (ans1 - ans2) * ans1 == q && (sq(ans1) + sq(ans2) == p + q);
 }
 
 bool solvex() {
   b1 = 3 * q + p;
-  double delta = sq(b1) - 8 * sq(q);
-  if(delta < 0.0) return false;
-
+  long double delta = sq(b1) - 8 * sq(q);
+  if(delta < 0) return false;
   delta = sqrt(delta);
+  // cout << "deltax: " << delta << "\n";
 
   double z1 = (b1 - delta) / 4;
   double z2 = (b1 + delta) / 4;
+  if(z1 < 0 || z1 < 0) return false;
 
   z1 = floor(sqrt(z1));
   z2 = floor(sqrt(z2));
+  // cout << "z1: " << z1 << "\n";
+  // cout << "z2: " << z2 << "\n";
 
   if(checkx(z1)) {
-    ans1 = z1;
+    ans1 = (ll)z1;
     return true;
   }
   else if(checkx(z1 + 1)) {
-    ans1 = z1 + 1;
+    ans1 = (ll)z1 + 1;
     return true;
   }
-  else if(checkx(z2)) {
-    ans1 = z2;
+  if(checkx(z2)) {
+    ans1 = (ll)z2;
     return true;
   }
   else if(checkx(z2 + 1)) {
-    ans1 = z2 + 1;
+    ans1 = (ll)z2 + 1;
     return true;
   }
   else return false;
@@ -61,31 +68,33 @@ bool solvex() {
 
 bool solvey() {
   b2 = 3 * p + q;
-  double delta = sq(b2) - 8 * sq(p);
-  if(delta < 0.0) return false;
+  long double delta = sq(b2) - 8 * sq(p);
+  if(delta < 0) return false;
 
   delta = sqrt(delta);
 
   double z1 = (b2 - delta) / 4;
   double z2 = (b2 + delta) / 4;
+  // cout << "z1: " << z2 << "\n";
+  if(z1 < 0 || z2 < 0) return false;
 
   z1 = floor(sqrt(z1));
   z2 = floor(sqrt(z2));
 
   if(checky(z1)) {
-    ans2 = z1;
+    ans2 = (ll)z1;
     return true;
   }
   else if(checky(z1 + 1)) {
-    ans2 = z1 + 1;
+    ans2 = (ll)z1 + 1;
     return true;
   }
   else if(checky(z2)) {
-    ans2 = z2;
+    ans2 = (ll)z2;
     return true;
   }
   else if(checky(z2 + 1)) {
-    ans2 = z2 + 1;
+    ans2 = (ll)z2 + 1;
     return true;
   }
   else return false;
@@ -101,8 +110,14 @@ int main() {
     cin >> p >> q;
     cout << "Case " << k++ << ":\n";
     if(solvex() && solvey()) {
-      if(p * q < 0) ans1 = -ans1, ans2 = -ans2;
-      cout << ans1 << " " << ans2 << "\n";
+      if(p * q < 0) {
+        if(-ans1 >= -ans2) ans1 = -ans1, ans2 = -ans2;
+        else ans2 = -ans2;
+      }
+      if(recheck())
+        cout << ans1 << " " << ans2 << "\n";
+      else
+        cout << "Impossible.\n";
     }
     else
       cout << "Impossible.\n";
