@@ -1,68 +1,79 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
+#define MAX 100000
+#define LOG 17
 #define pb push_back
 using namespace std;
 
-struct Node {
-  int key;
-  Node* left;
-  Node* right;
-};
+vector<int> graph[MAX];
+int pa[MAX][LOG];
+int depth[MAX]; // distance from the root node
 
-Node* push(int key) {
-  Node* temp = new Node;
-  temp->key = key;
-  temp->left = temp->right = NULL;
+void dfs(int node, int parent, int distance = 0) {
+  depth[node] = distance;
+  pa[node][0] = parent; // this node's parent node
 
-  return temp;
+  for(int i = 0; i < (int)graph[node].size(); i++) {
+    int neighbor = graph[node][i];
+    if(depth[neighbor] == -1)
+      dfs(neighbor, node, distance + 1);
+  }
 }
 
-Node* lca(Node* root, int n1, int n2) {
-  if(root == NULL) return NULL;
-  if(root->key == n1 || root->key == n2) return root;
+int lca(int u, int v) {
+  if(depth[u] < depth[v])
+    swap(u, v);
 
-  Node* lef = lca(root->left, n1, n2);
-  Node* rig = lca(root->right, n1, n2);
+  // search for a new v vertex
+  for(int i = LOG - 1; i >= 0; i--)
+    // if we have the opportunity to jump 2^i, we jump
+    if(depth[u] - (1 << i) >= depth[v])
+      u = pa[u][i];
 
-  if(lef != NULL && rig != NULL) return root;
-  if(lef == NULL && rig == NULL) return NULL;
+  if(u == v)
+    return u;
 
-  return lef == NULL ? rig : lef;
-}
+  for(int i = LOG - 1; i >= 0; i--) {
+    if(pa[u][i] != pa[v][i] && pa[u][i] != -1)
+      u = pa[u][i], v = pa[v][i];
+  }
 
-int height(Node* root, int key, int d = 0) {
-  if(root == NULL) return -1;
-  if(root->key == key) return d;
-
-  int lef = height(root->left, key, d + 1);
-  if(lef == -1)
-    return height(root->right, key, d + 1);
-  return lef;
-}
-
-int distance(Node* root, int n1, int n2) {
-  Node* ancestor = lca(root, n1, n2);
-
-  int d1 = height(ancestor, n1);
-  int d2 = height(ancestor, n2);
-
-  return d1 + d2;
+  return pa[u][0];
 }
 
 int main() {
-  Node* root = push(1);
-  root->left = push(2);
-  root->right = push(3);
-  root->left->left = push(4);
-  root->left->right = push(5);
-  root->right->left = push(6);
-  root->right->right = push(7);
-  root->right->left->right = push(8);
+  for(int i = 0; i < MAX; i++) depth[i] = -1;
+  for(int i = 0; i < MAX; i++)
+    for(int j = 0; j < LOG; j++)
+      pa[i][j] = -1;
 
-  cout << distance(root, 5, 8) << "\n";
-  cout << lca(root, 5, 8)->key << "\n";
+  int n, q;
+  cin >> n >> q;
+  for(int i = 0; i < n - 1; i++) {
+    int a, b;
+    cin >> a >> b;
+    a--, b--;
+    graph[a].pb(b);
+    graph[b].pb(a);
+  }
 
+  dfs(0, -1);
+
+  for(int i = 0; i < n; i++)
+    cout << " " << pa[i][0] << "\n";
+  for(int j = 1; j <= LOG; j++)
+    for(int i = 1; i <= n; i++)
+      if(pa[i][j - 1] != -1)
+        pa[i][j] = pa[pa[i][j - 1]][j - 1];
+
+  while(q--) {
+    int u, v;
+    cin >> u >> v;
+
+    cout << "lca of " << u << " and " << v << " = " << lca(u, v) << "\n";
+  }
 
   return 0;
 }
