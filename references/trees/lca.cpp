@@ -61,8 +61,6 @@ int main() {
 
   dfs(0, -1);
 
-  for(int i = 0; i < n; i++)
-    cout << " " << pa[i][0] << "\n";
   for(int j = 1; j <= LOG; j++)
     for(int i = 1; i <= n; i++)
       if(pa[i][j - 1] != -1)
