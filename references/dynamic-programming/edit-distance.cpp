@@ -14,7 +14,7 @@ int editDistance(string str1, string str2) {
 
   for(int i = 1; i <= sz1; i++) {
     for(int j = 1; j <= sz2; j++) {
-      if(str1[i] == str2[j]) pd[i][j] = pd[i - 1][j - 1];
+      if(str1[i - 1] == str2[j - 1]) pd[i][j] = pd[i - 1][j - 1];
       else pd[i][j] = min(min(pd[i - 1][j], pd[i][j - 1]), pd[i - 1][j - 1]) + 1;
     }
   }
