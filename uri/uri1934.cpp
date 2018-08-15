@@ -64,6 +64,5 @@ int main() {
   }
 
   for(auto i : ans) cout << i.f << " " << i.s << "\n";
-
   return 0;
 }
