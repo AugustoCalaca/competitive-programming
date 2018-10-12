@@ -13,31 +13,28 @@ using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
 
-int start[30], fini[30], u[30];
-
 int main() {
   FAST;
 
-  int n;
-  while(cin >> n) {
-    for(int i = 0; i < n; i++)
-      cin >> start[i];
-    for(int i = 0; i < n; i++)
-      cin >> fini[i];
+  int n, l, c, sz, cfl, lfp, ans;
+  string str;
 
-    int ans = 0;
+  while(cin >> n >> l >> c) {
+    ans = cfl = 0;
+    lfp = 1;
     for(int i = 0; i < n; i++) {
-      for(int j = 0; j < n; j++)
-        if(fini[j] == start[i]) {
-          u[i] = j;
-          break;
-        }
-      if(i < 1) continue;
-      for(int j = 0; j < i; j++)
-        if(u[j] > u[i]) ans++;
+      cin >> str;
+      sz = str.size();
+      if(cfl + sz <= c) cfl += sz + 1;
+      else {
+        lfp++;
+        cfl = sz + 1;
+      }
+      if(lfp == l) lfp = 0, ans++;
     }
-
+    if(lfp > 0) ans++;
     cout << ans << "\n";
   }
+
   return 0;
 }
