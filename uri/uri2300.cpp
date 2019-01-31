@@ -41,7 +41,6 @@ int main() {
 
     dfs(graph, 0);
 
-    cout << "Teste " << ++k << "\n";
     bool flag = true;
     for(int i = 0; i < e; i++)
       if(!depth[i]) {
@@ -49,6 +48,7 @@ int main() {
         break;
       }
 
+    cout << "Teste " << ++k << "\n";
     if(flag)
       cout << "normal";
     else
